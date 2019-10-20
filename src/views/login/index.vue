@@ -7,16 +7,19 @@
 						<h3 class="text-center mb-0 text-info">vue-element-admin</h3>
 					</div>
 					<div class="card-body">
-						<el-form ref="form" :model="form">
-							<el-form-item>
-								<el-input 
+						<el-form ref="form" :model="form" :rules="rules">
+							<el-form-item prop="username">
+								<el-input 									
 									v-model="form.username" 
 									size="medium"
 									placeholder="请输入用户名"
 								></el-input>								
 							</el-form-item>
-							<el-form-item>
+							<el-form-item
+								prop="password"
+							>
 								<el-input 
+									class="mt-2"
 									v-model="form.username" 
 									size="medium"
 									type="password"
@@ -44,6 +47,14 @@
 				form:{
 					username:'',
 					password:''
+				},
+				rules:{
+					username:[
+						{required: true,message:"请输入用户名",trigger:'blur'}					
+					],
+					password:[
+						{required: true,message:"请输入密码",trigger:'blur'}					
+					]
 				}
 			}
 		}
