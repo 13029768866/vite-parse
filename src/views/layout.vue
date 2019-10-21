@@ -2,30 +2,34 @@
 	<div>
 	<!-- 设置全屏 -->
 	<el-container style="position: absolute;left: 0;right: 0;top: 0;bottom: 0;">
-		<el-header>
+		<el-header 
+			style="background-color:rgb(84, 92, 100) ;"
+			class="d-flex align-items-center"
+		>
+			<!-- logo -->
+			<!-- flex+mr-auto实现两侧分布 -->
+			<a class="h5 text-light mb-0 mr-auto">剑来后台管理平台</a>
+			<!-- 导航菜单 -->
 			<el-menu
-				:default-active="activeIndex2"
-				class="el-menu-demo"
+				:default-active="navCurrentIdx"				
 				mode="horizontal"
 				@select="handleSelect"
 				background-color="#545c64"
 				text-color="#fff"
 				active-text-color="#ffd04b">
-				<el-menu-item index="1">处理中心</el-menu-item>
-				<el-submenu index="2">
-					<template slot="title">我的工作台</template>
-					<el-menu-item index="2-1">选项1</el-menu-item>
-					<el-menu-item index="2-2">选项2</el-menu-item>
-					<el-menu-item index="2-3">选项3</el-menu-item>
-					<el-submenu index="2-4">
-						<template slot="title">选项4</template>
-						<el-menu-item index="2-4-1">选项1</el-menu-item>
-						<el-menu-item index="2-4-2">选项2</el-menu-item>
-						<el-menu-item index="2-4-3">选项3</el-menu-item>
-					</el-submenu>
+				<el-menu-item index="1">首页</el-menu-item>				
+				<el-menu-item index="2" >商品</el-menu-item>
+				<el-menu-item index="3" >订单</el-menu-item>
+				<el-menu-item index="4" >会员</el-menu-item>
+				<el-menu-item index="5" >设置</el-menu-item>
+				<el-submenu index="99">
+					<template slot="title">
+						<el-avatar size="small" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
+						wzj加油
+					</template>
+					<el-menu-item index="2-1">修改</el-menu-item>
+					<el-menu-item index="2-2">退出</el-menu-item>									
 				</el-submenu>
-				<el-menu-item index="3" disabled>消息中心</el-menu-item>
-				<el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>
 			</el-menu>
 		</el-header>
 		<!-- 设置滚动条 -->
@@ -46,6 +50,11 @@
 		data(){
 			return {
 				navCurrentIdx: '1'
+			}	  
+		},
+		methods: {
+			handleSelect(key, keyPath) {
+				console.log(key, keyPath);
 			}
 		}
 	}
@@ -55,7 +64,6 @@
   .el-header, .el-footer {
     background-color: #B3C0D1;
     color: #333;
-   
   }
   
   .el-aside {
