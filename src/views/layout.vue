@@ -11,17 +11,18 @@
 			<a class="h5 text-light mb-0 mr-auto">剑来后台管理平台</a>
 			<!-- 导航菜单 -->
 			<el-menu
-				:default-active="navCurrentIdx"				
+				:default-active="navBarMenu.navBarCurrentIdx"				
 				mode="horizontal"
 				@select="handleSelect"
 				background-color="#545c64"
 				text-color="#fff"
 				active-text-color="#ffd04b">
-				<el-menu-item index="1">首页</el-menu-item>				
-				<el-menu-item index="2" >商品</el-menu-item>
-				<el-menu-item index="3" >订单</el-menu-item>
-				<el-menu-item index="4" >会员</el-menu-item>
-				<el-menu-item index="5" >设置</el-menu-item>
+				<el-menu-item
+					v-for="(item,idx) in navBarMenu.list"
+					:key ="idx"
+					:index = "idx | numToStr"
+				>{{item.name}}</el-menu-item>			
+									
 				<el-submenu index="99">
 					<template slot="title">
 						<el-avatar size="small" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
@@ -59,12 +60,23 @@
 </template>
 
 <script>
+	import mixins from '@/mixins/mixins'
 	export default {
+		mixins: [mixins],
 		data(){
-			return {
-				navCurrentIdx: '1'
+			return {				
+				navBarMenu:{
+					navBarCurrentIdx:'0',
+					list:[
+						{name:"首页"},
+						{name:"商品"},
+						{name:"订单"},
+						{name:"会员"},
+						{name:"设置"}
+					]
+				}
 			}	  
-		},
+		},		
 		methods: {
 			handleSelect(key, keyPath) {
 			 console.log(key, keyPath);
