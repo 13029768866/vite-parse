@@ -7,7 +7,7 @@
 						<h3 class="text-center mb-0 text-info">vue-element-admin</h3>
 					</div>
 					<div class="card-body">
-						<el-form ref="form" :model="form" :rules="rules">
+						<el-form ref="ruleForm" :model="form" :rules="rules">
 							<el-form-item prop="username">
 								<el-input 									
 									v-model="form.username" 
@@ -20,7 +20,7 @@
 							>
 								<el-input 
 									class="mt-2"
-									v-model="form.username" 
+									v-model="form.password" 
 									size="medium"
 									type="password"
 									placeholder="请输入密码"
@@ -30,7 +30,9 @@
 								<el-button
 									class="w-100"
 									type="primary" 
-									size="medium">立即登录</el-button>
+									size="medium"
+									@click="submit"
+							>立即登录</el-button>
 							</el-form-item>
 						</el-form>
 					</div>
@@ -56,6 +58,15 @@
 						{required: true,message:"请输入密码",trigger:'blur'}					
 					]
 				}
+			}
+		},
+		methods:{
+			submit(){
+				this.$refs.ruleForm.validate((e)=>{
+					if(!e) return
+					// 提交表单
+					this.$router.push({name:'index'})
+				})
 			}
 		}
 	}
