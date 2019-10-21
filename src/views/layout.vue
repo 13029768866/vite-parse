@@ -36,7 +36,20 @@
 		<el-container style="height: 100%;padding-bottom: 60px;">
 			<!-- 侧边导航栏 -->
 			<el-aside width="200px">
-				<li v-for="i in 100" :key= "i">{{i}}</li>
+				<el-menu default-active="2"  @select="sildeSelect">											      								
+						<el-menu-item index="2">
+							<i class="el-icon-menu"></i>
+							<span slot="title">导航二</span>
+						</el-menu-item>
+						<el-menu-item index="3" disabled>
+							<i class="el-icon-document"></i>
+							<span slot="title">导航三</span>
+						</el-menu-item>
+						<el-menu-item index="4">
+							<i class="el-icon-setting"></i>
+							<span slot="title">导航四</span>
+						</el-menu-item>
+					</el-menu>
 			</el-aside>
 			<!-- 主体内容 -->
 			<el-main>Main</el-main>
@@ -54,8 +67,11 @@
 		},
 		methods: {
 			handleSelect(key, keyPath) {
-				console.log(key, keyPath);
-			}
+			 console.log(key, keyPath);
+			},
+			sildeSelect(key, keyPath) {
+			 console.log(key, keyPath);
+			},
 		}
 	}
 </script>
