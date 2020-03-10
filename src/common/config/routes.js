@@ -1,20 +1,4 @@
-# VUE商城类型后台管理系统
 
-## 一、初始化
-
-1、vue/cli:	根据vue脚手架初始化项目
-
-2、element-ui:	vue	add	element
-
-3、boostrap4：	index.html引入CDN中boostrap的css
-
-## 二、路由设计
-
-本项目采用约定式路由，使文件格式更清晰，查找更方便，减少引入操作，路由过多时观察更方便
-
-### 1、routes抽离统一管理
-
-```js
 const routes = [
 	{
 		path:'/',
@@ -38,11 +22,7 @@ const routes = [
 		redirect:{name:'index'},
 	}
 	]
-```
-
-### 2、根据component自动生成路由
-
-```js
+	
 	// path中index校验
 	function checkPathIndex(str){
 		const idx = str.lastIndexOf('/')
@@ -77,5 +57,7 @@ function getRoutes(routes){
 		autoCreateRoute(routes)
 		return routes;
 }
-```
-
+	
+	export default getRoutes(routes);
+		
+	
