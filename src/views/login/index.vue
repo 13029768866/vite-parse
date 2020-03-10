@@ -5,7 +5,7 @@
 				<div class="col-12 col-sm-9 col-md-7 col-lg-5 m-auto mt-5 pt-5" style="height: 500px;">
 					<div class="card">
 						<div class="card-header  bg-white">
-							<h3 class="text-center mb-0">剑来管理系统</h3>
+							<h3 class="text-center mb-0">{{$config.logo}}</h3>
 						</div>
 						<div class="card-body">
 							<el-form ref="loginForm" :model="form" :rules="rules">

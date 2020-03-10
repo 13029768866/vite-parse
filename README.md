@@ -79,5 +79,154 @@ function getRoutes(routes){
 }
 ```
 
-## 三、
+## 三、后台首页布局
+
+### 1、双导航联动
+
+后台首页采取双导航，侧边栏导航通过计算属性由头部导航选中项决定
+
+```js
+data() {
+			return {
+				// 头部导航栏
+				headerNavBar: {					
+					list: [
+						{
+							name: "首页",			
+							sllideMenu: [{
+									icon: "el-icon-s-home",
+									name: "后台首页"
+								},
+								{
+									icon: "el-icon-s-claim",
+									name: "商品列表"
+								},
+							]
+						},
+						{
+							name: "商品",
+							sllideMenu: [{
+									icon: "el-icon-s-home",
+									name: "后台首页"
+								},								
+							]
+						},
+						{
+							name: "订单",
+							sllideMenu: [{
+									icon: "el-icon-s-home",
+									name: "后台首页"
+								},
+								{
+									icon: "el-icon-s-claim",
+									name: "商品列表"
+								},
+							]
+						},
+						{
+							name: "会员",
+							sllideMenu: [{
+									icon: "el-icon-s-home",
+									name: "后台首页"
+								},							
+							]
+						},
+						{
+							name: "设置",
+							sllideMenu: [{
+									icon: "el-icon-s-home",
+									name: "后台首页"
+								},
+								{
+									icon: "el-icon-s-claim",
+									name: "商品列表"
+								},
+							]
+						},
+					]
+				},
+				// 头部选中项
+				headerNavActive: '0',
+				// 侧边栏选中项
+				sildeNavActive: '0'
+			}
+		},
+		computed: {
+			// 根据头部导航选择对应的侧边栏目录
+			headerTosllideMenus() {
+				return this.headerNavBar.list[this.headerNavActive].sllideMenu || []
+			}			
+		},
+		methods: {
+			// 头部导航选中
+			headerNavSelect(key) {			
+				this.headerNavActive = key
+				this.sildeNavActive = "0"
+			},
+			// 侧边栏选中
+			slideNavSelect(key) {
+				this.sildeNavActive = key
+			}
+		}
+```
+
+### 2、面包屑导航
+
+#### 2.1、生成面包屑
+
+```js
+// 获取面包屑
+getRouterBreadcrumb(){
+    // console.log(this.$route.matched)
+    this.breadcrumbArr = []
+    let breadcrumbArr = this.$route.matched.filter(route => route.name)
+    let arr = []
+    breadcrumbArr.forEach(breadcrumb => {
+        // 过滤layout和index
+        if(breadcrumb.name === "index" || breadcrumb.name === "layout") return;
+        arr.push({
+            name: breadcrumb.name,
+            path: breadcrumb.path,
+            title: breadcrumb.meta.title,
+        })
+        // 添加第一级目录
+        if (arr.length) {
+            arr.unshift({ name:'index',path:'/index',title:'后台首页' })
+        }					
+        this.breadcrumbArr = arr			
+    })
+}
+```
+
+#### 2.2、根据面包屑切换路由（监听路由变化）
+
+```js
+watch:{
+    '$route'(to, from) {				
+        this.getRouterBreadcrumb()
+    }
+}
+```
+
+#### 2.3、刷新页面路由本地化存储
+
+```js
+watch:{
+    '$route'(to, from) {	
+        localStorage.setItem('routerStatus',JSON.stringify({
+            header: this.headerNavActive,
+            slide: 	this.sildeNavActive
+        }))
+        this.getRouterBreadcrumb()
+    }
+},
+    saveRouterStatus(){
+        let routerStatus = localStorage.getItem('routerStatus')
+        if(routerStatus){
+            routerStatus = JSON.parse(routerStatus)
+            this.headerNavActive = routerStatus.header
+            this.sildeNavActive = routerStatus.slide
+        }
+    }
+```
 
