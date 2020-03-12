@@ -17,7 +17,7 @@
 				<el-button type="success" size="mini" >搜索</el-button>
 			</div>
 			<el-button type="danger" size="mini"
-			@click="imageDelAll" v-if="chooseList.length > 1">
+			@click="imageDel(null)" v-if="chooseList.length > 1">
 			批量删除</el-button>
 			<el-button type="success" size="mini" @click="photoAblumAddOrEdit(-1)">创建相册</el-button>
 			<el-button type="warning" size="mini"
@@ -288,12 +288,20 @@
 			},
 			// 删除当前图片
 			imageDel(index){
-				this.$confirm('是否删除该图片?', '提示', {
+				console.log(index)
+				this.$confirm(index != null?'是否删除该图片?':'是否删除选中图片?', '提示', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
 					type: 'warning'
 				}).then(() => {
-					this.imageList.splice(index,1)
+					if(index != null){
+						this.imageList.splice(index,1)
+					}else{
+						this.imageList = this.imageList.filter(img =>{
+							return !this.chooseList.some(choose => choose.id === img.id)
+						})
+						this.chooseList = []
+					}					
 					this.$message({
 						message: '删除成功',
 						type: 'success'
@@ -329,13 +337,7 @@
 				// 重置序号
 				item.checkOrder = 0
 			},
-			/* 批量删除 */
-			imageDelAll(){
-				this.imageList = this.imageList.filter(img =>{
-					return !this.chooseList.some(choose => choose.id === img.id)
-				})
-				this.chooseList = []
-			}
+			
 			
 		},
 	}
