@@ -230,3 +230,50 @@ watch:{
     }
 ```
 
+## 四、相册管理
+
+### 1、相册列表的增删改查
+
+### 2、图片的增删改查
+
+### 3、照片多选，中间取消的数字排序
+
+```js
+imgList:[{ 
+    id:i,
+    url:"https://tangzhe123-com.oss-cn-shenzhen.aliyuncs.com/Appstatic/qsbk/demo/datapic/40.jpg",
+    name:"图片",
+    ischeck:false,
+    checkOrder:0
+}] // 照片数组，isCheck决定是否选中，checkOrder是角标序号
+chooseList: [] // 选中数组
+	chooseImage(item){
+        /* 选中 */
+        if(!item.ischeck){
+            item.ischeck = true
+            this.chooseList.push(item)
+            item.checkOrder = this.chooseList.length
+            return
+        }
+        /* 取消选中 */
+        // 获取取消选中索引
+        let idx = this.chooseList.findIndex(choose => choose.id === item.id)
+        // 取消中途选中重新计算之后的序号
+        let chooseListLength = this.chooseList.length
+        if(idx + 1 < chooseListLength){
+            for(let i = idx; i < chooseListLength; i++){
+                let imgOrderIdx = this.imageList.findIndex(img => img.checkOrder === this.chooseList[i].checkOrder)
+                if(imgOrderIdx > -1){
+                    this.imageList[imgOrderIdx].checkOrder--
+                }
+            }
+        }
+        // 删除
+        this.chooseList.splice(idx,1)	
+        // 修改状态
+        item.ischeck = false
+        // 重置序号
+        item.checkOrder = 0
+			}
+```
+

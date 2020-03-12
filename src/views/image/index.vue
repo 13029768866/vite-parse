@@ -16,6 +16,9 @@
 				style="width: 150px;"></el-input>
 				<el-button type="success" size="mini" >搜索</el-button>
 			</div>
+			<el-button type="danger" size="mini"
+			@click="imageDelAll" v-if="chooseList.length > 1">
+			批量删除</el-button>
 			<el-button type="success" size="mini" @click="photoAblumAddOrEdit(-1)">创建相册</el-button>
 			<el-button type="warning" size="mini"
 				@click="uploadModel = true"
@@ -55,21 +58,35 @@
 				<el-row :gutter="10">
 					<el-col :span="24" :lg="4" :md="6" :sm="8"
 				v-for="(item,index) in imageList" :key="index">
+				
 					<el-card class="box-card mb-3 position-relative" 
 					style="cursor: pointer;"
 					:body-style="{'padding':'0'}" shadow="hover">
-						<img :src="item.url" class="w-100" 
-						style="height: 100px;" />
-						<div class="w-100 text-white px-1" style="background: rgba(0,0,0,0.5);margin-top: -25px;position: absolute;">
-							<span class="small">{{item.name}}</span>
-						</div>
+					
+						<div class="border"
+						:class="{'border-danger':item.ischeck}">
+							
+							<span class="badge badge-danger"
+							style="position: absolute;right: 0;top: 0;"
+							v-if="item.ischeck">
+							{{item.checkOrder}}</span>
 						
-						<div class="p-2 text-center">
-							<el-button-group>
-								<el-button icon="el-icon-view" size="mini" class="p-2" @click="previewImage(item)"></el-button>
-								<el-button icon="el-icon-edit" size="mini" class="p-2" @click="imageEdit(item,index)"></el-button>
-								<el-button icon="el-icon-delete" size="mini" class="p-2" @click="imageDel(index)"></el-button>
-							</el-button-group>
+							
+							<img :src="item.url" class="w-100" 
+							style="height: 100px;" 
+							@click="chooseImage(item)"/>
+							<div class="w-100 text-white px-1" style="background: rgba(0,0,0,0.5);margin-top: -25px;position: absolute;">
+								<span class="small">{{item.name}}</span>
+							</div>
+							
+							<div class="p-2 text-center">
+								<el-button-group>
+									<el-button icon="el-icon-view" size="mini" class="p-2" @click="previewImage(item)"></el-button>
+									<el-button icon="el-icon-edit" size="mini" class="p-2" @click="imageEdit(item,index)"></el-button>
+									<el-button icon="el-icon-delete" size="mini" class="p-2" @click="imageDel(index)"></el-button>
+								</el-button-group>
+							</div>
+							
 						</div>						
 					</el-card>
 				</el-col>
@@ -148,12 +165,10 @@
 				/* 照片区域 */
 				previewModel:false,
 				previewUrl:"",
-				imageList:[
-					{ 
-						url:"https://tangzhe123-com.oss-cn-shenzhen.aliyuncs.com/Appstatic/qsbk/demo/datapic/40.jpg",
-						name:"图片"
-					}
-				]
+				imageList:[],
+				// 选中相片数组
+				chooseList:[]			
+				
 			}
 		},
 		mounted() {
@@ -161,11 +176,21 @@
 		},
 		methods: {
 			__init() {
-				for (var i = 0; i < 20; i++) {
+				for (let i = 0; i < 20; i++) {
 					this.phototAlbums.push({
 						name:"相册"+i,
 						num:Math.floor(Math.random()*100),
 						order:0
+					})
+				}
+				
+				for (let i = 0; i < 30; i++) {
+					this.imageList.push({ 
+						id:i,
+						url:"https://tangzhe123-com.oss-cn-shenzhen.aliyuncs.com/Appstatic/qsbk/demo/datapic/40.jpg",
+						name:`图片${i}`,
+						ischeck:false,
+						checkOrder:0
 					})
 				}
 			},
@@ -274,6 +299,42 @@
 						type: 'success'
 					});
 				})
+			},
+			// 选择相片
+			chooseImage(item){
+				/* 选中 */
+				if(!item.ischeck){
+					item.ischeck = true
+					this.chooseList.push(item)
+					item.checkOrder = this.chooseList.length
+					return
+				}
+				/* 取消选中 */
+				// 获取取消选中索引
+				let idx = this.chooseList.findIndex(choose => choose.id === item.id)
+				// 取消中途选中重新计算之后的序号
+				let chooseListLength = this.chooseList.length
+				if(idx + 1 < chooseListLength){
+					for(let i = idx; i < chooseListLength; i++){
+						let imgOrderIdx = this.imageList.findIndex(img => img.checkOrder === this.chooseList[i].checkOrder)
+						if(imgOrderIdx > -1){
+							this.imageList[imgOrderIdx].checkOrder--
+						}
+					}
+				}
+				// 删除
+				this.chooseList.splice(idx,1)	
+				// 修改状态
+				item.ischeck = false
+				// 重置序号
+				item.checkOrder = 0
+			},
+			/* 批量删除 */
+			imageDelAll(){
+				this.imageList = this.imageList.filter(img =>{
+					return !this.chooseList.some(choose => choose.id === img.id)
+				})
+				this.chooseList = []
 			}
 			
 		},
