@@ -16,14 +16,14 @@
 					>
 						{{headerNav.name}}
 					</el-menu-item>
-					<el-submenu index="6">
+					<el-submenu index="99">
 						<template slot="title">
 							<el-avatar size="small" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png">
 							</el-avatar>
 							summer
 						</template>
-						<el-menu-item index="6-1">修改</el-menu-item>
-						<el-menu-item index="6-2">退出</el-menu-item>
+						<el-menu-item index="99-1">修改</el-menu-item>
+						<el-menu-item index="99-2">退出</el-menu-item>
 					</el-submenu>
 				</el-menu>
 			</el-header>
@@ -74,7 +74,7 @@
 				</el-main>
 			</el-container>
 		</el-container>
-	</div>
+	</div> 
 </template>
 
 <script>
