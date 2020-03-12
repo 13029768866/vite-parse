@@ -16,6 +16,9 @@
 				style="width: 150px;"></el-input>
 				<el-button type="success" size="mini" >搜索</el-button>
 			</div>
+			<el-button type="warning" size="mini"
+			@click="unChoose" v-if="chooseList.length > 1">
+							取消选中</el-button>
 			<el-button type="danger" size="mini"
 			@click="imageDel(null)" v-if="chooseList.length > 1">
 			批量删除</el-button>
@@ -24,6 +27,7 @@
 				@click="uploadModel = true"
 			>上传图片</el-button>
 		</el-header>
+		
 		<el-container>
 		<el-aside width="200px" style="position: absolute;top: 60px;left: 0;bottom: 60px;" class="bg-white border-right">
 			<!-- 侧边 | 相册列表-->
@@ -94,8 +98,26 @@
 			</el-main>
 		</el-container>
 		</el-container>
-		<el-footer>
+		
+		<el-footer class="border-top d-flex align-items-center px-0">
 			<!-- 底部 -->
+			<div style="width: 200px; flex-shrink: 0;" class="h-100 d-flex align-items-center justify-content-center border-right">
+				<el-button-group>
+					<el-button size="mini">上一页</el-button>
+					<el-button size="mini">下一页</el-button>
+				</el-button-group>
+			</div>
+			<div style="flex: 1;" class="px-2">
+				<el-pagination
+				@size-change="handleSizeChange"
+				@current-change="handleCurrentChange"
+				:current-page="currentPage"
+				:page-sizes="[100, 200, 300, 400]"
+				:page-size="100"
+				layout="total, sizes, prev, pager, next, jumper"
+				:total="400">
+			</el-pagination>
+			</div>
 		</el-footer>
 	</el-container>
 	
@@ -167,7 +189,8 @@
 				previewUrl:"",
 				imageList:[],
 				// 选中相片数组
-				chooseList:[]			
+				chooseList:[],
+				currentPage: 1
 				
 			}
 		},
@@ -337,7 +360,23 @@
 				// 重置序号
 				item.checkOrder = 0
 			},
-			
+			/* 取消选中 */
+			unChoose(){
+				this.imageList.map(img => {
+				 let idx =	this.chooseList.findIndex(choose => choose.id === img.id)
+				 if(idx > -1){
+					 img.ischeck = false
+					 img.checkOrder = 0
+					 this.chooseList.splice(idx,1)
+				 }				
+				})
+			},
+			handleSizeChange(val) {
+			console.log(`每页 ${val} 条`);
+			},
+			handleCurrentChange(val) {
+			console.log(`当前页: ${val}`);
+			}
 			
 		},
 	}
