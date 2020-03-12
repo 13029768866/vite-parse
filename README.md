@@ -277,3 +277,14 @@ chooseList: [] // 选中数组
 			}
 ```
 
+### 4、批量删除
+
+```js
+imageDelAll(){
+    this.imageList = this.imageList.filter(img =>{
+        return !this.chooseList.some(choose => choose.id === img.id)
+    })
+    this.chooseList = []
+}
+```
+
