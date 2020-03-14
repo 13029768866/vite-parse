@@ -288,3 +288,17 @@ imageDelAll(){
 }
 ```
 
+### 5、取消选中
+
+```js
+	unChoose(){
+        this.imageList.map(img => {
+            let idx =	this.chooseList.findIndex(choose => choose.id === img.id)
+            if(idx > -1){
+                img.ischeck = false
+                img.checkOrder = 0
+                this.chooseList.splice(idx,1)
+            }				
+        })
+```
+
