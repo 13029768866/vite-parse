@@ -15,11 +15,15 @@
 </template>
 
 <script>
+	import {mapState} from 'vuex'
 	export default {
 		data() {
 			return {
 				tabIndex: 0
 			}
+		},
+		mounted() {
+			console.log(this.ceshi)
 		},
 		methods: {
 			// 加载数据
@@ -27,6 +31,11 @@
 				console.log(tab.index);
 			},
 		},
+		computed:{
+			...mapState({
+				ceshi: state => state.goodsCreate.ceshi
+			})
+		}
 	}
 </script>
 

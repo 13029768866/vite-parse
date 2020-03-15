@@ -211,6 +211,7 @@
 		},
 		created() {
 			this.__getData()
+			
 		},
 		methods: {
 			// 生成数据
