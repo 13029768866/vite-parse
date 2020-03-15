@@ -2,7 +2,7 @@
 	<div class="bg-white px-3" style="margin: -20px;margin-top: -1rem;margin-bottom: 0!important;">
 		
 		<el-tabs v-model="tabIndex" @tab-click="handleClick">
-		    <el-tab-pane :label="tab.name" :key="tabI"
+			<el-tab-pane :label="tab.name" :key="tabI"
 			v-for="(tab,tabI) in tabbars">
 			
 				<button-search ref="buttonSearch" 
@@ -10,8 +10,10 @@
 				@search="searchEvent">
 				<!-- 左边 -->
 					<template #left>
-						<el-button type="success" 
-						size="mini">发布商品</el-button>
+						<router-link :to="{name:'shop_goods_create'}">
+							<el-button type="success"
+							size="mini">发布商品</el-button>
+						</router-link>
 						<el-button type="warning"
 						size="mini">恢复商品</el-button>
 						<el-button type="danger" 
@@ -221,7 +223,7 @@
 					for (let j = 0; j < 20; j++) {
 						this.tableData[i].list.push({
 							id:j,
-							title: '荣耀 V10全网通 标配版'+i+'-'+j,
+							title: '荣耀 V10全网通 标配版'+this.tabbars[i].name+'-'+j,
 							cover: 'http://static.yoshop.xany6.com/2018071718294208f086786.jpg',
 							create_time: '2019-07-17 18:34:14',
 							category:"手机",
