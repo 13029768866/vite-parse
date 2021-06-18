@@ -5,7 +5,15 @@
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
     "lint:eslint": "eslint \"{src,mock}/**/*.{vue,ts,tsx}\" --fix",
+    "lint:prettier": "prettier --write --loglevel warn \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
+    "lint:stylelint": "stylelint --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
+    "lint:lint-staged": "lint-staged -c ./.husky/lintstagedrc.js",
+    "lint:pretty": "pretty-quick --staged",
+    "install:husky": "is-ci || husky install",
     "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{vue,js,ts}": "eslint --fix"
   },
   "dependencies": {
     "lodash-es": "^4.17.21",
@@ -27,6 +35,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-vue": "^7.11.1",
     "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
     "prettier": "^2.3.1",
     "typescript": "^4.3.2",
     "vite": "^2.3.7",
