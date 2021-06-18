@@ -1,29 +1,24 @@
 <template>
-  <div id="app">
-    
-    <router-view/>
-  </div>
+  <img alt="Vue logo" src="./assets/logo.png" />
 </template>
 
-<style >
-::-webkit-scrollbar-track
-{
-  background: rgba(0,0,0,.1);
-  border-radius: 0;
-}
+<script lang="ts">
+  import { defineComponent } from 'vue';
 
-::-webkit-scrollbar
-{
-  -webkit-appearance: none;
-  width: 10px;
-  height: 10px;
-}
+  export default defineComponent({
+    name: 'App',
+    components: {},
+    setup() {},
+  });
+</script>
 
-::-webkit-scrollbar-thumb
-{
-    cursor: pointer;
-    border-radius: 5px;
-    background: rgba(0,0,0,.25);
-    transition: color .2s ease;
-}
+<style>
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
+  }
 </style>
