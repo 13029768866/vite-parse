@@ -4,10 +4,10 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
-    "lint:lint-staged": "eslint \"{src,mock}/**/*.{vue,ts,tsx}\" --fix",
+    "lint:lint-staged": "lint-staged -c ./.husky/lintstagedrc.js",
     "prepare": "husky install"
   },
- 
+
   "dependencies": {
     "lodash-es": "^4.17.21",
     "nprogress": "^0.2.0",
