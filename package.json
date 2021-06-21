@@ -8,9 +8,6 @@
     "lint:pretty": "pretty-quick --staged",
     "prepare": "husky install"
   },
-  "lint-staged": {
-    "*.{vue,js,ts}": "eslint --fix"
-  },
   "dependencies": {
     "lodash-es": "^4.17.21",
     "nprogress": "^0.2.0",
