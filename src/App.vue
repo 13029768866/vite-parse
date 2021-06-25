@@ -8,7 +8,12 @@
   export default defineComponent({
     name: 'App',
     components: {},
-    setup() {},
+    setup() {
+      const a = 1;
+      return {
+        a,
+      };
+    },
   });
 </script>
 
