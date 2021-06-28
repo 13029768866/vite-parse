@@ -1,29 +1,20 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
+  <Login />
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
+  import Login from '_views/sys/login/Login.vue';
 
   export default defineComponent({
     name: 'App',
-    components: {},
+    components: {
+      Login,
+    },
     setup() {
-      const a = 1;
-      return {
-        a,
-      };
+      return {};
     },
   });
 </script>
 
-<style>
-  #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  }
-</style>
+<style></style>
