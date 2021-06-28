@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-full h-screen px-4 bg-green-100">
+  <div class="relative w-full h-full px-4 bg-green-100">
     <pre>{{ tmp }}</pre>
   </div>
 </template>
