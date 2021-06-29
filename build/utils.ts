@@ -6,7 +6,7 @@ export function wrapperEnv(envConf: Recordable): ViteEnv {
     let realName = envConf[item].replace(/\\n/g, '\n');
     // 布尔值处理
     realName = realName === 'true' ? true : realName === 'false' ? false : realName;
-    // 条件判断
+    // 端口，代理处理
     if (item === 'VITE_PORT') {
       realName = Number(realName);
     }
