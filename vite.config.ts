@@ -1,5 +1,6 @@
 import type { UserConfig, ConfigEnv } from 'vite';
 /* build */
+import { generateModifyVars } from './build/generate/generateModifyVars';
 import { wrapperEnv } from './build/utils';
 
 /* plugin */
@@ -30,6 +31,14 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
   return {
     root,
     base: VITE_PUBLIC_PATH,
+    css: {
+      preprocessorOptions: {
+        less: {
+          modifyVars: generateModifyVars(),
+          javascriptEnabled: true,
+        },
+      },
+    },
     plugins: [vue(), viteESLint({ include: ['src/**/*.vue', 'src/**/*.js', 'src/**/*.ts'] })],
     resolve: {
       alias: {

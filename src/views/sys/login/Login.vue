@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-full h-full px-4 bg-green-100"> </div>
+  <div :class="prefixCls" class="relative w-full h-full px-4 bg-green-100"></div>
 </template>
 
 <script lang="ts">
@@ -14,4 +14,6 @@
   });
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+  @prefix-cls: ~'@{namespace}-login';
+</style>
