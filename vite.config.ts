@@ -45,6 +45,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         '@': resolve(__dirname, 'src'),
         _views: resolve(__dirname, 'src/views'),
         _comp: resolve(__dirname, 'src/components'),
+        _hooks: resolve(__dirname, 'src/hooks'),
       },
     },
     server: {
