@@ -5,7 +5,7 @@ module.exports = {
   semi: true, // 语句结尾是否打印分号
   singleQuote: true, // 是否使用单引号
   quoteProps: 'as-needed', // 对象属性被引用修改时 as-needed(需要时候添加)，consistent(一个引用全部添加)，preserve(对象属性中使用)
-  jsxSingleQuote: true, // jsx使用单引号
+  jsxSingleQuote: false, // jsx使用单引号
   trailingComma: 'es5', // 多行末尾逗号，es5(对象，数组es5中有效结尾逗号)，none（没有）,all(尽可能使用,现代浏览器需要babel转译支持node8，ES7)
   bracketSpacing: true, // 对象空格{ foo: bar }
   jsxBracketSameLine: false, // 开始标签结尾‘>’是否换行，false换行
