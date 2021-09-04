@@ -109,3 +109,71 @@ trim_trailing_whitespace = false
    ```bash
    npx husky add .husky/commit-msg "npx --no-install commitlint --edit $1"
    ```
+
+## 二、vue全家桶集成
+
+### 2.1、vue.config
+
+1. webpack配置合并项的方式
+
+   ```js
+   	// 1、对象形式
+       configureWebpack: {
+           resolve: {
+             // 别名配置
+             alias: {
+               _comp: '@/components',
+             },
+           },
+         },
+             
+   	// 2、函数形式
+         configureWebpack: (config) => {
+             config.resolve.alias = {
+                 '@': path.resolve(__dirname, 'src'),
+                 _comp: '@/components',
+             };
+         },
+             
+        // 3、函数的链式调用模式
+   	  chainWebpack: (config) => {
+             config.resolve.alias.set('@', path.resolve(__dirname, 'src')).set('_comp', '@/components');
+         },
+   ```
+
+## 三、UI框架集成
+
+1. element-plus按需加载
+
+   ```js
+   // 安装按需加载css插件
+   npm i babel-plugin-import -D
+   
+   // babel.config.js配置
+   module.exports = {
+     plugins: [
+       [
+         'import',
+         {
+           libraryName: 'element-plus',
+           // 引入组件
+           customName: name => {
+             name = name.slice(3)
+             return `element-plus/lib/components/${name}`
+           },
+           // 引入样式
+           customStyleName: name => {
+             name = name.slice(3)
+             // 如果你需要引入 [name].scss 文件，你需要用下面这行
+             // return `element-plus/lib/components/${name}/style`
+             // 引入 [name].css
+             return `element-plus/lib/components/${name}/style/css`
+           },
+         },
+       ],
+     ],
+   }
+   ```
+
+   
+
