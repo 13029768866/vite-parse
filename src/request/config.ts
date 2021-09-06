@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // 状态码错误提示
-const showStatus = (status: number) => {
+const showStatus = (status: number): string => {
   let message = '';
   switch (status) {
     case 400:

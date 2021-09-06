@@ -1,6 +1,6 @@
 import { App } from 'vue';
-import { registerElement } from './registerElement';
+import { registerAntd } from './registerAntd';
 
 export function globalRegister(app: App): void {
-  registerElement(app);
+  registerAntd(app);
 }

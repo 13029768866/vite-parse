@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
-    <el-button>123</el-button>
+    <a-button>123</a-button>
   </div>
 </template>
 
