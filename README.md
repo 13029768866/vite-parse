@@ -126,7 +126,7 @@ trim_trailing_whitespace = false
              },
            },
          },
-
+   
    	// 2、函数形式
          configureWebpack: (config) => {
              config.resolve.alias = {
@@ -134,7 +134,7 @@ trim_trailing_whitespace = false
                  _comp: '@/components',
              };
          },
-
+   
         // 3、函数的链式调用模式
    	  chainWebpack: (config) => {
              config.resolve.alias.set('@', path.resolve(__dirname, 'src')).set('_comp', '@/components');
